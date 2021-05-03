@@ -1,7 +1,7 @@
 import pyupbit
 import numpy as np
 
-coins = ["KRW-BTC", "KRW-XRP", "KRW-VET", "KRW-SC", "KRW-ETC","KRW-IOST"]
+coins = ["KRW-BTC", "KRW-DOGE", "KRW-VET", "KRW-SC", "KRW-ETC","KRW-IOST","KRW-SXP"]
 result = pyupbit.get_ohlcv("KRW-BTC", count=0)
 
 for c in coins:
@@ -16,6 +16,6 @@ for c in coins:
     df['hpr'] = df['ror'].cumprod()
     df['dd'] = (df['hpr'].cummax() - df['hpr']) / df['hpr'].cummax() * 100
     df['name'] = c;
-    print("MDD(%): ", df['dd'].max())
+    print("MDD(%): " + c, df['dd'].max())
     result = result.append(df)
 result.to_excel("dd.xlsx")

@@ -36,6 +36,7 @@ upbit = pyupbit.Upbit(access, secret)
 print("autotrade start")
 
 # 자동매매 시작
+TIB = False
 while True:
     try:
         now = datetime.datetime.now()
@@ -45,11 +46,13 @@ while True:
         if start_time < now < end_time - datetime.timedelta(seconds=10):
             target_price = get_target_price("KRW-BTC", 0.5)
             current_price = get_current_price("KRW-BTC")
-            if target_price < current_price:
+            if target_price < current_price and TIB == False:
                 krw = get_balance("KRW")
                 if krw > 5000:
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
+                    TIB = True
         else:
+            TIB = False
             btc = get_balance("BTC")
             if btc > 0.00008:
                 upbit.sell_market_order("KRW-BTC", btc*0.9995)
