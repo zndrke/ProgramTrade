@@ -40,7 +40,7 @@ TIB = False
 while True:
     try:
         now = datetime.datetime.now()
-        start_time = get_start_time("KRW-BTC")
+        start_time = get_start_time("KRW-DOGE")
         end_time = start_time + datetime.timedelta(days=1)
 
         if start_time < now < end_time - datetime.timedelta(seconds=10):
@@ -52,7 +52,6 @@ while True:
                     upbit.buy_market_order("KRW-BTC", krw*0.9995)
                     TIB = True
         else:
-            TIB = False
             btc = get_balance("BTC")
             if btc > 0.00008:
                 upbit.sell_market_order("KRW-BTC", btc*0.9995)
