@@ -61,9 +61,13 @@ print("autotrade start")
 
 # 자동매매 시작
 BTC_TIB = False
+DOGE_TIB = False
+LTC_TIB = False
 while True:
     try:
-    	BTC_TIB = coinAutoTrade(0.1,"KRW-BTC","BTC", BTC_TIB)
+        LTC_TIB = coinAutoTrade(0.3,"KRW-LTC","LTC", LTC_TIB)
+        BTC_TIB = coinAutoTrade(0.3,"KRW-BTC","BTC", BTC_TIB)
+        DOGE_TIB = coinAutoTrade(0.4,"KRW-DOGE","DOGE", DOGE_TIB)
     except Exception as e:
         print(e)
         time.sleep(1)
