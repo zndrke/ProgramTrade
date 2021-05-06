@@ -1,12 +1,12 @@
 import pyupbit
 import numpy as np
+coins = ["KRW-BTC", "KRW-ETH", "KRW-DOGE", "KRW-XRP", "KRW-ADA", "KRW-DOT", "KRW-BCH","KRW-LTC","KRW-LINK", "KRW-ETC", "KRW-VET", "KRW-EOS", "KRW-SC","KRW-SXP","KRW-BTT", "KRW-WAVES", "KRW-IOST", "KRW-OMG", "KRW-BTG", "KRW-TRX", "KRW-NEO"]
 
-coins = ["KRW-BTC", "KRW-DOGE", "KRW-VET", "KRW-SC", "KRW-ETC","KRW-IOST","KRW-SXP","KRW-BTT","KRW-LINK","KRW-BCH","KRW-WAVES","KRW-LTC","KRW-OMG","KRW-BTG","KRW-TRX"]
 result = pyupbit.get_ohlcv("KRW-BTC", count=0)
 
 for c in coins:
     df = pyupbit.get_ohlcv(c, interval="day", count=7)
-    df['range'] = (df['high'] - df['low']) * 0.1
+    df['range'] = (df['high'] - df['low']) * 0.3
     df['target'] = df['open'] + df['range'].shift(1)
 
     df['ror'] = np.where(df['high'] > df['target'],
