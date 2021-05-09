@@ -22,7 +22,7 @@ def get_current_price(ticker):
     return pyupbit.get_orderbook(tickers=ticker)[0]["orderbook_units"][0]["ask_price"]
 
 
-def coinAutoTrade(k, ticker):
+def coinAutoTrade(k, ticker, amount):
     now = datetime.datetime.now()
     start_time = get_start_time(ticker)
     end_time = start_time + datetime.timedelta(days=1)
@@ -40,8 +40,8 @@ def coinAutoTrade(k, ticker):
         if target_price < current_price and balance_to_krw < 5000 :
             krw = upbit.get_balance("KRW")
             # 잔고가 5000원 이상이면 10만원 한도로 매수
-            if krw > 10000:
-                krw = 10000
+            if krw > amount:
+                krw = amount
             if krw > 5000:
                 upbit.buy_market_order(ticker, krw*0.9995)
     else:
@@ -57,7 +57,14 @@ print("autotrade start")
 # 자동매매 시작
 while True:
     try:
-        coinAutoTrade(0.3,"KRW-NEO")        
+        coinAutoTrade(0.3,"KRW-ADA", 100000)
+        coinAutoTrade(0.5,"KRW-BCH", 100000)
+        coinAutoTrade(0.7,"KRW-OMG", 100000)
+        coinAutoTrade(0.4,"KRW-DOGE", 50000)
+        coinAutoTrade(0.5,"KRW-EOS", 50000)
+        coinAutoTrade(0.5,"KRW-TRX", 50000)
+        coinAutoTrade(0.3,"KRW-NEO", 50000)
+
     except Exception as e:
         print(e)
         time.sleep(1)

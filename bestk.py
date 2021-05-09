@@ -3,13 +3,13 @@ import numpy as np
 
 
 def get_ror(k=0.5):
-    df = pyupbit.get_ohlcv("KRW-LINK",count=100)
+    df = pyupbit.get_ohlcv("KRW-OMG", count=30)
     df['range'] = (df['high'] - df['low']) * k
     df['target'] = df['open'] + df['range'].shift(1)
 
     fee = 0.0005
     df['ror'] = np.where(df['high'] > df['target'],
-                         df['close'] / df['target'] - fee ,
+                         df['close'] / (df['target']*(1 + fee)) ,
                          1)
 
     ror = df['ror'].cumprod()[-2]
